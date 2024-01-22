@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,9 +16,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,11 +30,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,7 +78,8 @@ fun UserInterface(modifier: Modifier = Modifier) {
             .padding(20.dp, 20.dp, 20.dp, 0.dp)
     ) {
         Row(
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom
         ) {
             OutlinedTextField(
                 value = name.value,
@@ -96,34 +104,47 @@ fun UserInterface(modifier: Modifier = Modifier) {
                         name.value = ""
                     }
                 },
-                modifier = modifier.padding(0.dp, 10.dp)
+                shape = RoundedCornerShape(7.dp),
+
             ) {
                 Text(text = "Add")
             }
         }
 
-        Spacer(modifier = modifier.height(10.dp))
+        Spacer(modifier = modifier.height(3.dp))
 
         LazyColumn{
             items(
                 nameList.size
             ){index ->
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(0.dp, 10.dp),
-
-                    text = nameList[index],
-                    textAlign = TextAlign.Justify,
-                    color = Color.Gray,
-                )
-
-                if (nameList.size != index+1) {
-                    Log.d("index", "Size = ${nameList.size} & index = $index")
-                    Divider()
-                }else{
-                    Spacer(modifier = modifier.height(10.dp))
+                if (index == 0){
+                    Spacer(modifier = modifier.height(15.dp))
                 }
+
+                Card(
+                    modifier = modifier
+                        .fillMaxWidth(),
+
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Column() {
+                        Image(
+                            painter = painterResource(id = R.drawable.bg_compose_background),
+                            contentDescription = null
+                        )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(15.dp, 15.dp),
+
+                            text = nameList[index],
+                            textAlign = TextAlign.Justify,
+                            color = Color.Gray,
+                        )
+                    }
+                }
+
+                Spacer(modifier = modifier.height(15.dp))
             }
         }
     }
