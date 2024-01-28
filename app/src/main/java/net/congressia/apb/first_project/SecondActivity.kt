@@ -1,5 +1,6 @@
 package net.congressia.apb.first_project
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -22,6 +23,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -41,6 +43,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import net.congressia.apb.first_project.meditation.MeditationMain
 import net.congressia.apb.first_project.ui.theme.First_projectTheme
 
 class SecondActivity : ComponentActivity() {
@@ -60,7 +63,7 @@ class SecondActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun UserInterface(modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -84,7 +87,10 @@ fun UserInterface(modifier: Modifier = Modifier) {
             OutlinedTextField(
                 value = name.value,
                 onValueChange = {name.value = it},
-                label = { Text(text = "Enter your name...")},
+                label = { Text(
+                    text = "Enter your name...",
+                    style = MaterialTheme.typography.labelMedium
+                ) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
                     onDone = {
@@ -107,7 +113,10 @@ fun UserInterface(modifier: Modifier = Modifier) {
                 shape = RoundedCornerShape(7.dp),
 
             ) {
-                Text(text = "Add")
+                Text(
+                    text = "Add",
+                    style = MaterialTheme.typography.labelMedium
+                )
             }
         }
 
@@ -122,10 +131,13 @@ fun UserInterface(modifier: Modifier = Modifier) {
                 }
 
                 Card(
+                    onClick = {context.startActivity(Intent(context, MeditationMain::class.java))},
                     modifier = modifier
                         .fillMaxWidth(),
 
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(10.dp),
+                    enabled = true
+
                 ) {
                     Column() {
                         Image(

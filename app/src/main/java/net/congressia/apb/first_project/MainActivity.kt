@@ -31,6 +31,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import net.congressia.apb.first_project.ui.theme.Beige1
+import net.congressia.apb.first_project.ui.theme.Beige2
+import net.congressia.apb.first_project.ui.theme.Beige3
 import net.congressia.apb.first_project.ui.theme.First_projectTheme
 
 class MainActivity : ComponentActivity() {
@@ -62,20 +65,25 @@ fun UI(modifier: Modifier = Modifier) {
 
         Text(
             text = stringResource(id = R.string.title),
-            fontSize = 24.sp,
-            modifier = modifier.padding(16.dp, 16.dp)
+            modifier = modifier.padding(16.dp, 16.dp),
+            style = MaterialTheme.typography.titleMedium,
+            color = Beige3
         )
 
         Text(
             text = stringResource(id = R.string.sub_title),
             textAlign = TextAlign.Justify,
-            modifier = modifier.padding(16.dp, 0.dp, 16.dp, 0.dp)
+            modifier = modifier.padding(16.dp, 0.dp, 16.dp, 0.dp),
+            style = MaterialTheme.typography.bodySmall,
+            color = Beige2
         )
 
         Text(
             text = stringResource(id = R.string.description),
             textAlign = TextAlign.Justify,
-            modifier = modifier.padding(16.dp, 16.dp, 16.dp, 16.dp)
+            modifier = modifier.padding(16.dp, 16.dp, 16.dp, 16.dp),
+            style = MaterialTheme.typography.bodySmall,
+            color = Beige2
         )
 
         Spacer(modifier = modifier.weight(1f))
@@ -88,7 +96,10 @@ fun UI(modifier: Modifier = Modifier) {
 
             onClick = { context.startActivity(Intent(context, SecondActivity::class.java))}
         ) {
-            Text(text = "Next Page")
+            Text(
+                text = "Next Page",
+                style = MaterialTheme.typography.labelLarge
+            )
         }
     }
 }
