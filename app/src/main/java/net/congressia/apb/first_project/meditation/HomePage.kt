@@ -255,7 +255,7 @@ fun FeatureItem(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 5.dp, end = 5.dp, bottom = 10.dp)
-            .aspectRatio(1f)
+            .aspectRatio(1.2f)
             .clip(RoundedCornerShape(10.dp))
             .background(color = Color.DarkGray)
             .padding(15.dp)
