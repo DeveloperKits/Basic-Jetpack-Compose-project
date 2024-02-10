@@ -21,43 +21,30 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.magnifier
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.congressia.apb.first_project.R
+import net.congressia.apb.first_project.ui.theme.AquaBlue
 import net.congressia.apb.first_project.ui.theme.ButtonBlue
 import net.congressia.apb.first_project.ui.theme.DarkerButtonBlue
 import net.congressia.apb.first_project.ui.theme.DeepBlue
-import net.congressia.apb.first_project.ui.theme.Pink40
 import net.congressia.apb.first_project.ui.theme.Pink80
 import net.congressia.apb.first_project.ui.theme.Purple80
-import net.congressia.apb.first_project.ui.theme.PurpleGrey80
 import net.congressia.apb.first_project.ui.theme.TextWhite
 
 @Composable
@@ -75,6 +62,7 @@ fun HomePage() {
             Spacer(modifier = Modifier.height(20.dp))
             CurrentMeditation()
             Spacer(modifier = Modifier.height(20.dp))
+            
             FeatureSection(feature = listOf(
                 Feature(
                     tittle = "Hello Akash What up brother?",
@@ -105,15 +93,88 @@ fun HomePage() {
                     iconId = androidx.core.R.drawable.ic_call_answer_video
                 )
             ))
+        }
+        BottomMenu(items = listOf(
+            BottomMenuContent("Home", androidx.core.R.drawable.ic_call_answer_video),
+            BottomMenuContent("Meditate", androidx.core.R.drawable.ic_call_answer_video),
+            BottomMenuContent("Sleep", androidx.core.R.drawable.ic_call_answer_video),
+        ), modifier = Modifier.align(Alignment.BottomCenter))
 
+    }
+}
+
+@Composable
+fun BottomMenu(
+    items: List<BottomMenuContent>,
+    modifier: Modifier = Modifier,
+    activeHighLightColor: Color = ButtonBlue,
+    activeTextColor: Color = Color.White,
+    inactiveTextColor: Color = AquaBlue,
+    initSelectedItem: Int = 0
+) {
+    var selectedItem by remember {
+        mutableIntStateOf(initSelectedItem)
+    }
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .background(DeepBlue)
+            .padding(15.dp)
+    ) {
+        items.forEachIndexed { index, bottomMenuContent ->  
+            BottomMenuItem(
+                item = bottomMenuContent,
+                isSelected = index == selectedItem,
+                activeHighLightColor = activeHighLightColor,
+                activeTextColor = activeTextColor,
+                inactiveTextColor = inactiveTextColor
+            ) {
+                selectedItem = index
+            }
         }
     }
 }
 
 @Composable
-fun BottomAppBarDefaults() {
+fun BottomMenuItem(
+    item: BottomMenuContent,
+    isSelected: Boolean = false,
+    activeHighLightColor: Color = ButtonBlue,
+    activeTextColor: Color = Color.White,
+    inactiveTextColor: Color = AquaBlue,
+    onItemClick: () -> Unit
+) {
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.clickable {
+            onItemClick()
+        }
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .background(if (isSelected) activeHighLightColor else Color.Transparent)
+                .padding(10.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = item.iconId),
+                contentDescription = "null",
+                tint = if (isSelected) activeTextColor else inactiveTextColor,
+                modifier = Modifier.size(20.dp)
+            )
+        }
 
-
+        Text(
+            text = item.tittle,
+            color = if (isSelected) activeTextColor else inactiveTextColor,
+            modifier = Modifier
+        )
+    }
 }
 
 @Composable
@@ -236,10 +297,10 @@ fun FeatureSection(feature: List<Feature>) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(bottom = 100.dp),
+        contentPadding = PaddingValues(bottom = 20.dp),
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = 10.dp, bottom = 100.dp)
+            .padding(top = 10.dp, bottom = 80.dp)
     ){
         items(feature.size){
             FeatureItem(feature = feature[it])
