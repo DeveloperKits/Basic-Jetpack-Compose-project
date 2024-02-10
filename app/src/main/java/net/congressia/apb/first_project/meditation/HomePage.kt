@@ -1,7 +1,6 @@
 package net.congressia.apb.first_project.meditation
 
-import android.view.RoundedCorner
-import android.view.WindowInsets
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -39,19 +37,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.congressia.apb.first_project.R
-import net.congressia.apb.first_project.ui.theme.AquaBlue
-import net.congressia.apb.first_project.ui.theme.ButtonBlue
-import net.congressia.apb.first_project.ui.theme.DarkerButtonBlue
-import net.congressia.apb.first_project.ui.theme.DeepBlue
-import net.congressia.apb.first_project.ui.theme.Pink80
-import net.congressia.apb.first_project.ui.theme.Purple80
-import net.congressia.apb.first_project.ui.theme.TextWhite
+import net.congressia.apb.first_project.ui.theme.*
 
+@SuppressLint("PrivateResource")
 @Composable
 fun HomePage() {
     Box(
         modifier = Modifier
-            .background(DeepBlue)
+            .background(AquaBlue)
             .fillMaxSize()
             .padding(horizontal = 15.dp)
     ) {
@@ -65,40 +58,51 @@ fun HomePage() {
             
             FeatureSection(feature = listOf(
                 Feature(
-                    tittle = "Hello Akash What up brother?",
+                    tittle = "Sleep meditation",
+                    iconId = R.drawable.baseline_headphones_24
+                ),
+                Feature(
+                    tittle = "Tips for sleeping",
                     iconId = androidx.core.R.drawable.ic_call_answer_video
                 ),
                 Feature(
-                    tittle = "Call Cancel",
-                    iconId = androidx.core.R.drawable.ic_call_decline
+                    tittle = "Night island",
+                    iconId = androidx.core.R.drawable.ic_call_answer_video_low
                 ),
                 Feature(
-                    tittle = "Video Call",
-                    iconId = androidx.core.R.drawable.ic_call_answer_low
+                    tittle = "Calming sounds",
+                    iconId = R.drawable.baseline_music_note_24
                 ),
                 Feature(
-                    tittle = "Video Call",
+                    tittle = "Sleep meditation",
+                    iconId = R.drawable.baseline_headphones_24
+                ),
+                Feature(
+                    tittle = "Tips for sleeping",
                     iconId = androidx.core.R.drawable.ic_call_answer_video
                 ),
                 Feature(
-                    tittle = "Hello Akash What up brother?",
-                    iconId = androidx.core.R.drawable.ic_call_answer_video
+                    tittle = "Night island",
+                    iconId = androidx.core.R.drawable.ic_call_answer_video_low
                 ),
                 Feature(
-                    tittle = "Call Cancel",
-                    iconId = androidx.core.R.drawable.ic_call_decline
-                ),
-                Feature(
-                    tittle = "Video Call",
-                    iconId = androidx.core.R.drawable.ic_call_answer_video
+                    tittle = "Calming sounds",
+                    iconId = R.drawable.baseline_music_note_24
                 )
             ))
         }
-        BottomMenu(items = listOf(
-            BottomMenuContent("Home", androidx.core.R.drawable.ic_call_answer_video),
-            BottomMenuContent("Meditate", androidx.core.R.drawable.ic_call_answer_video),
-            BottomMenuContent("Sleep", androidx.core.R.drawable.ic_call_answer_video),
-        ), modifier = Modifier.align(Alignment.BottomCenter))
+
+        BottomMenu(
+            items = listOf(
+            BottomMenuContent("Home", R.drawable.baseline_home_24),
+            BottomMenuContent("Sleep", R.drawable.baseline_night_shelter_24),
+            BottomMenuContent("Music", R.drawable.baseline_music_note_24),
+            BottomMenuContent("Profile", R.drawable.baseline_person_24),
+            ),
+            modifier = Modifier.align(Alignment.BottomCenter),
+            activeHighLightColor = DarkerButtonBlue,
+            inactiveTextColor = TextWhite
+        )
 
     }
 }
@@ -117,11 +121,11 @@ fun BottomMenu(
     }
 
     Row(
-        horizontalArrangement = Arrangement.SpaceAround,
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(DeepBlue)
+            .background(AquaBlue)
             .padding(15.dp)
     ) {
         items.forEachIndexed { index, bottomMenuContent ->  
@@ -150,9 +154,7 @@ fun BottomMenuItem(
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.clickable {
-            onItemClick()
-        }
+        modifier = Modifier
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -165,9 +167,13 @@ fun BottomMenuItem(
                 painter = painterResource(id = item.iconId),
                 contentDescription = "null",
                 tint = if (isSelected) activeTextColor else inactiveTextColor,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(20.dp).clickable {
+                    onItemClick()
+                }
             )
         }
+
+        Spacer(modifier = Modifier.height(3.dp))
 
         Text(
             text = item.tittle,
@@ -234,8 +240,8 @@ fun ChipSection(
                     }
                     .clip(RoundedCornerShape(10.dp))
                     .background(
-                        if (sectionChipIndex == it) ButtonBlue
-                        else DarkerButtonBlue
+                        if (sectionChipIndex == it) DarkerButtonBlue
+                        else DarkerButtonBlueLight
                     )
                     .padding(15.dp)
             ) {
@@ -252,7 +258,7 @@ fun CurrentMeditation() {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(color = ButtonBlue)
+            .background(color = DarkerButtonBlue)
             .padding(15.dp)
             .fillMaxWidth()
 
@@ -275,11 +281,11 @@ fun CurrentMeditation() {
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(color = Purple80)
+                .background(color = DarkerButtonBlueLight)
                 .padding(10.dp)
         ){
             Icon(
-                painter = painterResource(id = androidx.core.R.drawable.ic_call_answer),
+                painter = painterResource(id = R.drawable.baseline_play_arrow_24),
                 contentDescription = null,
                 tint = Color.White
             )
@@ -318,7 +324,7 @@ fun FeatureItem(
             .padding(start = 5.dp, end = 5.dp, bottom = 10.dp)
             .aspectRatio(1.2f)
             .clip(RoundedCornerShape(10.dp))
-            .background(color = Color.DarkGray)
+            .background(color = PurpleGrey40)
             .padding(15.dp)
 
     ) {
@@ -349,7 +355,7 @@ fun FeatureItem(
                 }
                 .align(Alignment.BottomEnd)
                 .clip(RoundedCornerShape(6.dp))
-                .background(color = Pink80)
+                .background(color = DarkerButtonBlueLight)
                 .padding(vertical = 6.dp, horizontal = 10.dp)
         )
     }
