@@ -1,6 +1,8 @@
 package net.congressia.apb.first_project.meditation
 
+import ai.codia.x.composeui.demo.MainActivity2
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -253,6 +256,7 @@ fun ChipSection(
 
 @Composable
 fun CurrentMeditation() {
+    val context = LocalContext.current
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -283,6 +287,9 @@ fun CurrentMeditation() {
                 .clip(RoundedCornerShape(10.dp))
                 .background(color = DarkerButtonBlueLight)
                 .padding(10.dp)
+                .clickable {
+                    context.startActivity(Intent(context, MainActivity2::class.java))
+                }
         ){
             Icon(
                 painter = painterResource(id = R.drawable.baseline_play_arrow_24),

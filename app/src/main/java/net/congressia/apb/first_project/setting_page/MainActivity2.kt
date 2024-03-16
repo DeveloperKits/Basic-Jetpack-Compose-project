@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 /**
  * Created by codia-figma
  */
-class MainActivity : ComponentActivity() {
+class MainActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

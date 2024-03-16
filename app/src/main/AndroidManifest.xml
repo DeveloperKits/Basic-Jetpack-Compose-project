@@ -13,6 +13,12 @@
         android:theme="@style/Theme.First_project"
         tools:targetApi="31">
         <activity
+            android:name="ai.codia.x.composeui.demo.MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_meditation_main"
+            android:theme="@style/Theme.First_project" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_meditation_main"

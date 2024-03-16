@@ -1,5 +1,6 @@
 package net.congressia.apb.first_project
 
+import ai.codia.x.composeui.demo.MainActivity2
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -131,7 +132,7 @@ fun UserInterface(modifier: Modifier = Modifier) {
                 }
 
                 Card(
-                    onClick = {context.startActivity(Intent(context, MeditationMain::class.java))},
+                    onClick = {context.startActivity(Intent(context, MainActivity2::class.java))},
                     modifier = modifier
                         .fillMaxWidth(),
 
